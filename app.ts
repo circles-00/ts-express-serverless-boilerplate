@@ -6,13 +6,11 @@ import * as bodyParser from 'body-parser'
 import { Context } from './context'
 import { Request } from 'express'
 import authRouter from './routes/auth.router'
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 const { PORT } = process.env
-
-// Routers
-app.use('/', authRouter)
 
 // context
 app.use((req: Request, res, next) => {
@@ -28,4 +26,7 @@ app.use((req, res, next) => {
   next()
 })
 
-app.listen(PORT, () => console.log('App listening on port ' + PORT))
+// Routers
+app.use('/', authRouter)
+
+app.listen(PORT, () => console.log(`App listening on port ${PORT}`))
